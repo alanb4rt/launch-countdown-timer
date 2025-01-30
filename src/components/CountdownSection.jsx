@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { calculateTime } from "../utils/calculateTime";
+import config from "../config/config.json";
 import CountdownCard from "./CountdownCard";
+import { calculateTime } from "../utils/calculateTime";
 
 export default function CountdownSection() {
-  const theDate = "2025-01-01";
-  const launchDate = useMemo(() => new Date(theDate), []);
+  const launchDate = useMemo(() => new Date(config.launchDate), []);
   const [time, setTime] = useState(() => calculateTime(launchDate));
 
   useEffect(() => {

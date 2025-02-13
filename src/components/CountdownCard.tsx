@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
+import { checkValue } from "../utils/checkValue";
+import { CountdownType } from "../types/countdown";
 
-export default function CountdownCard({ value, unit }) {
+export default function CountdownCard({ value, unit }: CountdownType) {
   const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
     setIsAnimating(true);
     setTimeout(() => setIsAnimating(false), 1000 - 50);
   }, [value]);
-
-  const checkValue = (value) => {
-    switch (unit) {
-      case "seconds":
-      case "minutes":
-        return value === 59 ? 0 : value + 1;
-      case "hours":
-        return value === 23 ? 0 : value + 1;
-      default:
-        return value + 1;
-    }
-  };
 
   return (
     <div className="flex flex-col gap-4 md:gap-8 text-center">
@@ -33,7 +23,7 @@ export default function CountdownCard({ value, unit }) {
                 isAnimating ? "animate-card-top" : ""
               }`}
             >
-              <div className="card-top-content">{checkValue(value)}</div>
+              <div className="card-top-content">{checkValue(value, unit)}</div>
             </div>
           )}
         </div>
@@ -41,7 +31,7 @@ export default function CountdownCard({ value, unit }) {
         <div className="ctn-card-bottom rounded md:rounded-lg">
           <div className="card-bottom rounded md:rounded-lg">
             <div className="card-bottom-content">
-              {isAnimating ? checkValue(value) : value}
+              {isAnimating ? checkValue(value, unit) : value}
             </div>
           </div>
           {isAnimating && (
